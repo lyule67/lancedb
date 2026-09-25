@@ -18,20 +18,20 @@ categories = ["database-implementations"]
 rust-version = "1.91.0"
 
 [workspace.dependencies]
-lance = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801", default-features = false }
-lance-core = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801" }
-lance-datagen = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801" }
-lance-file = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801" }
-lance-io = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801", default-features = false }
-lance-index = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801" }
-lance-linalg = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801" }
-lance-namespace = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801" }
-lance-namespace-impls = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801", default-features = false }
-lance-table = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801" }
-lance-testing = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801" }
-lance-datafusion = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801" }
-lance-encoding = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801" }
-lance-arrow = { git = "https://github.com/lyule67/lance", rev = "6186708100dd1927b4a4befbfb129fac59944801" }
+lance = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5", default-features = false }
+lance-core = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-datagen = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-file = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-io = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5", default-features = false }
+lance-index = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-linalg = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-namespace = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-namespace-impls = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5", default-features = false }
+lance-table = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-testing = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-datafusion = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-encoding = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-arrow = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
 lancedb = { path = "rust/lancedb", default-features = false }
 ahash = "0.8"
 # Note that this one does not include pyarrow

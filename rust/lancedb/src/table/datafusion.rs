@@ -152,7 +152,7 @@ impl ExecutionPlan for MetadataEraserExec {
     }
 
     fn partition_statistics(&self, partition: Option<usize>) -> DataFusionResult<Arc<Statistics>> {
-        self.input.partition_statistics(partition)
+        lance_datafusion::exec::plan_statistics(self.input.as_ref(), partition)
     }
 
     fn supports_limit_pushdown(&self) -> bool {
