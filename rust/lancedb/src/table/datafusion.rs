@@ -85,6 +85,18 @@ impl DisplayAs for MetadataEraserExec {
 }
 
 impl ExecutionPlan for MetadataEraserExec {
+    fn apply_expressions(
+        &self,
+        _f: &mut dyn FnMut(
+            &Arc<dyn datafusion_physical_plan::PhysicalExpr>,
+        ) -> datafusion_common::Result<
+            datafusion_common::tree_node::TreeNodeRecursion,
+        >,
+    ) -> datafusion_common::Result<datafusion_common::tree_node::TreeNodeRecursion> {
+        // Holds no physical expressions.
+        Ok(datafusion_common::tree_node::TreeNodeRecursion::Continue)
+    }
+
     fn name(&self) -> &str {
         "MetadataEraserExec"
     }
