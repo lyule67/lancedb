@@ -1,5 +1,10 @@
 [workspace]
-members = ["rust/lancedb", "nodejs", "python"]
+# hydra-arrow59: the Hydra fork builds the Rust crate only. The Python and Node
+# bindings are left out of the workspace: on arrow 59 the Python binding's pyo3 0.28
+# conflicts with arrow-pyarrow 59's pyo3 0.29 (both link `python`), and Hydra
+# consumes neither binding.
+members = ["rust/lancedb"]
+exclude = ["nodejs", "python"]
 resolver = "2"
 
 [workspace.package]
@@ -13,44 +18,44 @@ categories = ["database-implementations"]
 rust-version = "1.91.0"
 
 [workspace.dependencies]
-lance = { "version" = "=12.0.0", default-features = false }
-lance-core = "=12.0.0"
-lance-datagen = "=12.0.0"
-lance-file = "=12.0.0"
-lance-io = { "version" = "=12.0.0", default-features = false }
-lance-index = "=12.0.0"
-lance-linalg = "=12.0.0"
-lance-namespace = "=12.0.0"
-lance-namespace-impls = { "version" = "=12.0.0", default-features = false }
-lance-table = "=12.0.0"
-lance-testing = "=12.0.0"
-lance-datafusion = "=12.0.0"
-lance-encoding = "=12.0.0"
-lance-arrow = "=12.0.0"
+lance = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5", default-features = false }
+lance-core = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-datagen = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-file = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-io = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5", default-features = false }
+lance-index = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-linalg = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-namespace = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-namespace-impls = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5", default-features = false }
+lance-table = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-testing = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-datafusion = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-encoding = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
+lance-arrow = { git = "https://github.com/lyule67/lance", rev = "ddd18246b6f425f462f7387495cba1e5f978a5d5" }
 lancedb = { path = "rust/lancedb", default-features = false }
 ahash = "0.8"
 # Note that this one does not include pyarrow
-arrow = { version = "58.0.0", optional = false }
-arrow-array = "58.0.0"
-arrow-buffer = "58.0.0"
-arrow-data = "58.0.0"
-arrow-ipc = "58.0.0"
-arrow-ord = "58.0.0"
-arrow-schema = "58.0.0"
-arrow-select = "58.0.0"
-arrow-cast = "58.0.0"
-arrow-flight = { version = "58.0.0", features = ["flight-sql-experimental"] }
+arrow = { version = "59.2.0", optional = false }
+arrow-array = "59.2.0"
+arrow-buffer = "59.2.0"
+arrow-data = "59.2.0"
+arrow-ipc = "59.2.0"
+arrow-ord = "59.2.0"
+arrow-schema = "59.2.0"
+arrow-select = "59.2.0"
+arrow-cast = "59.2.0"
+arrow-flight = { version = "59.2.0", features = ["flight-sql-experimental"] }
 async-trait = "0"
 bytes = "1"
-datafusion = { version = "54.0.0", default-features = false }
-datafusion-catalog = "54.0.0"
-datafusion-common = { version = "54.0.0", default-features = false }
-datafusion-execution = "54.0.0"
-datafusion-expr = "54.0.0"
-datafusion-functions = "54.0.0"
-datafusion-physical-plan = "54.0.0"
-datafusion-physical-expr = "54.0.0"
-datafusion-sql = "54.0.0"
+datafusion = { version = "55.1.0", default-features = false }
+datafusion-catalog = "55.1.0"
+datafusion-common = { version = "55.1.0", default-features = false }
+datafusion-execution = "55.1.0"
+datafusion-expr = "55.1.0"
+datafusion-functions = "55.1.0"
+datafusion-physical-plan = "55.1.0"
+datafusion-physical-expr = "55.1.0"
+datafusion-sql = "55.1.0"
 env_logger = "0.11"
 half = { "version" = "2.7.1", default-features = false, features = [
     "num-traits",
@@ -89,3 +94,4 @@ debug = false
 debug-assertions = false
 strip = "debuginfo"
 incremental = false
+

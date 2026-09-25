@@ -78,6 +78,30 @@ pub(crate) struct TerminalResult {
     request_id: Option<String>,
 }
 
+/// The error for a terminal result that cannot be decoded. A result that came
+/// from a remote response carries its request id and is reported as an HTTP
+/// error; without the `remote` feature every result is local.
+fn decode_error(
+    request_id: Option<String>,
+    remote_message: String,
+    local_message: String,
+) -> Error {
+    match request_id {
+        #[cfg(feature = "remote")]
+        Some(request_id) => Error::Http {
+            source: remote_message.into(),
+            request_id,
+            status_code: None,
+        },
+        _ => {
+            let _ = remote_message;
+            Error::Runtime {
+                message: local_message,
+            }
+        }
+    }
+}
+
 impl TerminalResult {
     fn local(value: Value) -> Self {
         Self {
@@ -86,6 +110,7 @@ impl TerminalResult {
         }
     }
 
+    #[cfg(feature = "remote")]
     pub(crate) fn remote(value: Option<Value>, request_id: String) -> Self {
         Self {
             value,
@@ -98,25 +123,19 @@ impl TerminalResult {
     }
 
     fn decode<T: DeserializeOwned>(self) -> Result<T> {
-        let value = self.value.ok_or_else(|| match &self.request_id {
-            Some(request_id) => Error::Http {
-                source: "successful typed job response did not contain a result".into(),
-                request_id: request_id.clone(),
-                status_code: None,
-            },
-            None => Error::Runtime {
-                message: "successful typed job did not contain a result".to_string(),
-            },
+        let value = self.value.ok_or_else(|| {
+            decode_error(
+                self.request_id.clone(),
+                "successful typed job response did not contain a result".to_string(),
+                "successful typed job did not contain a result".to_string(),
+            )
         })?;
-        serde_json::from_value(value).map_err(|error| match self.request_id {
-            Some(request_id) => Error::Http {
-                source: format!("failed to parse typed job result: {error}").into(),
-                request_id,
-                status_code: None,
-            },
-            None => Error::Runtime {
-                message: format!("failed to parse typed job result: {error}"),
-            },
+        serde_json::from_value(value).map_err(|error| {
+            decode_error(
+                self.request_id,
+                format!("failed to parse typed job result: {error}"),
+                format!("failed to parse typed job result: {error}"),
+            )
         })
     }
 }
